@@ -212,6 +212,9 @@ class Neighbor(object):
         if not (self.netbox and name):
             return
 
+        # sometimes there are lots of null bytes..
+        name = name.rstrip('\x00')
+
         if is_invalid_database_string(name):
             self._logger.warning("cannot search database for malformed "
                                  "neighboring port name %r", name)
